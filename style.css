@@ -1,0 +1,70 @@
+
+body{
+    font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    height:100%;
+    display:grid;
+}
+#navbar{
+    font-size: 2rem;
+    width:100%;
+    position: fixed;
+    top:0;
+    background-color:pink;
+    text-align: center;
+    right:0;
+    left:0;
+}
+ul{
+    list-style-type: none;
+    margin:0;
+    padding:0;
+    overflow:hidden;
+    
+}
+
+li{
+    float:left;
+   
+}
+li a{
+    display:block;
+    padding: .7rem 1rem;
+    text-decoration: none;
+    color:white;
+}
+
+li a:hover{
+    background-color:palevioletred;
+}
+
+h1{
+    text-align: center;
+    margin-top: 5rem;
+    color:skyblue;
+}
+
+img{
+    margin:auto;
+    display:block;
+    margin-bottom: 3rem;
+}
+
+.blog-post p{
+    text-align: center;
+}
+
+pre{
+    overflow:hidden;
+}
+code{
+    font-family: 'Courier New', Courier, monospace;
+    color:crimson;
+    background-color: #f1f1f1;
+    padding:2px;
+    font-size:105%;
+    display: inline-block;
+}
+.explain{
+    display:block;
+    text-align: left;float: left;
+}

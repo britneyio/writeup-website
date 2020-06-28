@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Write-Ups</title>
+    <link rel="stylesheet" href="../../style.css">
+
+</head>
+
+<body>
+    <div id="navbar">
+        <ul>
+            <li><a style="float:left" href=#">Britney's Blog</a></li>
+            <li><a href=index.html>Home</a></li>
+            <li><a href=writeups.html>Write-Ups</a></li>
+        </ul>
+    </div>
+    <br>
+    <div id="main">
+        <div class="blog-post">
+            
+            <h1>Redpwn 2020 Web Challenge WriteUp: Login  </h1>
+            <p>The challenge for Web is called Login. It is a login page as you can see below</p>
+            <img src="imgs/login.png" alt="picture of website">
+            <hr>
+            
+            <p class="explain">The login pages hints at a sql challenge because of the button saying "submit query". Then reading through the JS file, it requires sqlite3,
+                [<code> const db = require('better-sqlite3')('db.sqlite3');</code>]                ] so now I know this challenge is for
+                about SQL injections and at the end of the file it is initalizing a database all points to sql injections. One thing you should notice
+                before inputting random sql injections, is that it says that the username and password inputted should be a string. 
+                So the SQL injections used should start with and string literal character. 
+            </p>
+              
+                <code> const db = require('better-sqlite3')('db.sqlite3');</code>
+           
+                <pre>
+                    <code>
+                        
+    let result;
+    try {
+        result = db.prepare(`SELECT * FROM users 
+            WHERE username = '${username}'
+            AND password = '${password}';`).get();
+    } catch (error) {
+        res.json({ success: false, error: "There was a problem." });
+        res.end();
+        return;
+    }
+
+    if (result) {
+        res.json({ success: true, flag: process.env.FLAG });
+        res.end();
+        return;
+    }
+                    </code>
+
+                </pre>
+                <pre>
+                    <code>
+
+    // init database
+    db.prepare(`CREATE TABLE IF NOT EXISTS users (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        username TEXT,
+        password TEXT);`).run();
+
+    db.prepare(`INSERT INTO 
+        users (username, password)
+        VALUES ('${process.env.USERNAME}', '${process.env.PASSWORD}');`).run();
+                    </code>
+                </pre>
+        </div>
+    </div>
+    <script src="../../script.js"></script>
+</body>
+</html>
